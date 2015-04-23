@@ -30,7 +30,13 @@ function wkhtmltopdf(input, options, callback) {
   }
 
   var isUrl = /^(https?|file):\/\//.test(input);
-  args.push(isUrl ? "'" + input + "'" : '-'); // stdin if HTML given directly
+
+
+  // args.push(isUrl ? input : '-'); // stdin if HTML given directly
+  // SPG JULY 2014
+  // Quoting Issue - https://github.com/devongovett/node-wkhtmltopdf/issues/17
+  args.push(isUrl ? "'" + input + "'" : '-');
+
   args.push(output || '-');       // stdout if no output file
 
   if (process.platform === 'win32') {
